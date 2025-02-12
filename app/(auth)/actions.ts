@@ -56,6 +56,10 @@ export const register = async (
   formData: FormData,
 ): Promise<RegisterActionState> => {
   try {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Register is disabled in production');
+    }
+
     const validatedData = authFormSchema.parse({
       email: formData.get('email'),
       password: formData.get('password'),
