@@ -69,3 +69,10 @@ GRANT CREATE ON DATABASE citus to citus;
 ```
 
 NOTE: PG15 introduced the concept of security invoker and security definer views. All views pre-PG15 are security definer views. However Citus treats all views as security invoker views.
+
+## Deploying with Docker and Azure Container Service
+
+`Dockerfile` template is taken from [Next.js example repo](https://github.com/vercel/next.js/tree/canary/examples/with-docker) with a slight modification of updating image to [`node:21-alpine`](https://hub.docker.com/layers/library/node/21-alpine/images/sha256-7364f864dab534a6e982e683813e2a6b1b3cbe86217225dce31aedb75a4c96a3?context=explore)
+
+1. Build your container: `docker build -t nextjs-docker .`.
+2. Run your container: `docker run -p 3000:3000 nextjs-docker`.
