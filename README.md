@@ -59,3 +59,13 @@ pnpm dev
 ```
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
+
+## Additional instructions for Azure CosmosDB for Postgres
+
+If you are getting permission denied error, you can first grant create permission to particular user with that database.
+
+```bash
+GRANT CREATE ON DATABASE citus to citus;
+```
+
+NOTE: PG15 introduced the concept of security invoker and security definer views. All views pre-PG15 are security definer views. However Citus treats all views as security invoker views.

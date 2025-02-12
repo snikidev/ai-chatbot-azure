@@ -11,15 +11,14 @@
     "format": "biome format --write",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "npx tsx lib/db/migrate.ts",
-    "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "db:pull": "drizzle-kit pull",
     "db:check": "drizzle-kit check",
-    "db:up": "drizzle-kit up"
+    "db:up": "drizzle-kit up",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@ai-sdk/fireworks": "^0.1.8",
-    "@ai-sdk/openai": "1.1.9",
+    "@ai-sdk/azure": "^1.1.9",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/lang-python": "^6.1.6",
     "@codemirror/state": "^6.5.0",
