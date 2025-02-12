@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  A fork of [An Open-Source AI Chatbot Template](https://github.com/vercel/ai-chatbot). Everything is the same, but repurposed for Azure.
+  A fork of <a href="https://github.com/vercel/ai-chatbot" target="_blank">An Open-Source AI Chatbot Template</a>. Everything is the same, but repurposed for Azure.
 </p>
 
 <p align="center">
