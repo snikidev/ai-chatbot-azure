@@ -49,10 +49,7 @@ You will need to use the environment variables [defined in `.env.example`](.env.
 
 > Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various OpenAI and authentication provider accounts.
 
-1. Deploy three LLM models on [Azure AI Foundry](https://ai.azure.com)
-2. Deploy Azure CosmosDB for PostgreSQL
-3. Create Azure Blob Storage
-4. Create `.env.local`, copy over, and fill in all the environment variables from `.env.example`
+Create `.env.local`, copy over, and fill in all the environment variables from `.env.example`
 
 ```bash
 pnpm install

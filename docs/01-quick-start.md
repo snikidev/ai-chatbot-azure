@@ -6,32 +6,27 @@ Deploying to [Vercel](https://vercel.com) is the quickest way to get started wit
 
 ### Pre-requisites:
 
-- Vercel account and [Vercel CLI](https://vercel.com/docs/cli)
-- GitHub/GitLab/Bitbucket account
-- API Key from [OpenAI](https://platform.openai.com)
+- Three LLM models on [Azure AI Foundry](https://ai.azure.com) to start with
+- Azure CosmosDB for PostgreSQL
+- Azure Blob Storage
 
-### Deploy to Vercel
+### Deploy to Azure
 
-To deploy the chatbot template to Vercel, click this [link](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot&env=AUTH_SECRET,OPENAI_API_KEY&envDescription=Learn%20more%20about%20how%20to%20get%20the%20API%20Keys%20for%20the%20application&envLink=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot%2Fblob%2Fmain%2F.env.example&demo-title=AI%20Chatbot&demo-description=An%20Open-Source%20AI%20Chatbot%20Template%20Built%20With%20Next.js%20and%20the%20AI%20SDK%20by%20Vercel.&demo-url=https%3A%2F%2Fchat.vercel.ai&stores=%5B%7B%22type%22:%22postgres%22%7D,%7B%22type%22:%22blob%22%7D%5D) to enter the 1-click deploy flow.
+You can deploy your own version of the Next.js AI Chatbot either directly or containerized to a [Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/overview).
 
-During the flow, you will be prompted to create and connect to a postgres database and blob store. You will also need to provide environment variables for the application.
-
-After deploying the project, you can access the chatbot template by visiting the URL provided by Vercel.
+`Dockerfile` template is taken from [Next.js example repo](https://github.com/vercel/next.js/tree/canary/examples/with-docker) with a slight modification of updating image to [`node:21-alpine`](https://hub.docker.com/layers/library/node/21-alpine/images/sha256-7364f864dab534a6e982e683813e2a6b1b3cbe86217225dce31aedb75a4c96a3?context=explore)
 
 ### Local Development
 
-To develop the chatbot template locally, you can clone the repository and link it to your Vercel project. This will allow you to pull the environment variables from the Vercel project and use them locally.
+To develop the chatbot template locally, you can clone the repository, and then create `.env.local`, copy over, and fill in all the environment variables from `.env.example`.
 
 ```bash
 git clone https://github.com/<username>/<repository>
 cd <repository>
 pnpm install
-
-vercel link
-vercel env pull
 ```
 
-After linking the project, you can start the development server by running:
+Then you you can start the development server by running:
 
 ```bash
 pnpm dev
