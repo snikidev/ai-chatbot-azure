@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@ai-sdk/azure": "^1.1.9",
+    "@ai-sdk/deepseek": "^0.1.8",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/lang-python": "^6.1.6",
     "@codemirror/state": "^6.5.0",

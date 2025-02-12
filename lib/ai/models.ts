@@ -1,4 +1,5 @@
 import { createAzure } from '@ai-sdk/azure';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
   customProvider,
   extractReasoningMiddleware,
@@ -24,7 +25,7 @@ export const myProvider = customProvider({
     'chat-model-small': azureMini,
     'chat-model-large': azureLarge,
     'chat-model-reasoning': wrapLanguageModel({
-      model: createAzure({
+      model: createDeepSeek({
         baseURL: process.env.AZURE_BASE_URL_REASONING,
         apiKey: process.env.AZURE_API_KEY_REASONING,
       })(process.env.AZURE_DEPLOYMENT_NAME_REASONING!),
