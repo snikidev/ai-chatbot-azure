@@ -8,16 +8,16 @@ import {
 export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
 
 const azureMini = createAzure({
-  baseURL: process.env.AZURE_BASE_URL_MINI,
-  apiVersion: process.env.AZURE_API_VERSION_MINI,
-  apiKey: process.env.AZURE_API_KEY_MINI,
-})('gpt-4o-mini')
+  baseURL: process.env.AZURE_BASE_URL_SMALL,
+  apiVersion: process.env.AZURE_API_VERSION_SMALL,
+  apiKey: process.env.AZURE_API_KEY_SMALL,
+})(process.env.AZURE_DEPLOYMENT_NAME_SMALL!)
 
 const azureLarge = createAzure({
   baseURL: process.env.AZURE_BASE_URL_LARGE,
   apiVersion: process.env.AZURE_API_VERSION_LARGE,
   apiKey: process.env.AZURE_API_KEY_LARGE,
-})('o1')
+})(process.env.AZURE_DEPLOYMENT_NAME_LARGE!)
 
 export const myProvider = customProvider({
   languageModels: {
@@ -27,7 +27,7 @@ export const myProvider = customProvider({
       model: createAzure({
         baseURL: process.env.AZURE_BASE_URL_REASONING,
         apiKey: process.env.AZURE_API_KEY_REASONING,
-      })('DeepSeek-R1-eaxir'),
+      })(process.env.AZURE_DEPLOYMENT_NAME_REASONING!),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     'title-model': azureMini,
