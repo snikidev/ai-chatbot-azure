@@ -1,8 +1,9 @@
-import { BlobServiceClient } from "@azure/storage-blob";
+import { BlobSASPermissions, BlobServiceClient } from "@azure/storage-blob";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { auth } from "@/app/(auth)/auth";
+import { detectContentType } from "next/dist/server/image-optimizer";
 
 const FileSchema = z.object({
   file: z
@@ -24,7 +25,7 @@ const containerClient = blobServiceClient.getContainerClient(
 
 export async function POST(request: Request) {
   const session = await auth();
-  console.log(session)
+
   if (!session || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -50,22 +51,34 @@ export async function POST(request: Request) {
 
       return NextResponse.json({ error: errorMessage }, { status: 400 });
     }
-
+    
     const filename = (formData.get("file") as File).name;
     const fileBuffer = await file.arrayBuffer();
 
     try {
-      const blockBlobClient = containerClient.getBlockBlobClient(`${session.user.id}/${filename}`);
+      const blockBlobClient = containerClient.getBlockBlobClient(
+        `${session.user.id}/${filename}`
+      );
 
-      await blockBlobClient.uploadData(fileBuffer, {
+      const uploadBlobResponse = await blockBlobClient.uploadData(fileBuffer, {
         blobHTTPHeaders: {
           blobContentType: file.type,
         },
       });
 
+      const sasUrl = await blockBlobClient.generateSasUrl({
+        permissions: BlobSASPermissions.from({
+          read: true,
+          write: false,
+          create: false,
+        }),
+        expiresOn: new Date(Date.now() + 60 * 60 * 1000),
+      });
+
       return NextResponse.json({
-        url: blockBlobClient.url,
+        url: sasUrl,
         pathname: filename,
+        contentType: detectContentType(Buffer.from(fileBuffer))
       });
     } catch (error) {
       return NextResponse.json({ error: "Upload failed" }, { status: 500 });

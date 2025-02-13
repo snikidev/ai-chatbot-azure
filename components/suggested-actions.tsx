@@ -16,24 +16,25 @@ interface SuggestedActionsProps {
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
+      title: "What are the advantages",
+      label: "of using Azure Cognitive Services?",
+      action: "What are the advantages of using Azure Cognitive Services?",
     },
     {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
+      title: "How can I integrate",
+      label: "Azure Machine Learning into my workflow?",
+      action: "How can I integrate Azure Machine Learning into my workflow?",
     },
     {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
+      title: "What are the benefits",
+      label: "of Azure's AI solutions for data analysis?",
+      action:
+        "What are the benefits of Azure's AI solutions for data analysis?",
     },
     {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
+      title: "How does Azure AI",
+      label: "help reduce operational costs?",
+      action: "How does Azure AI help reduce operational costs?",
     },
   ];
 
