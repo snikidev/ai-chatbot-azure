@@ -16,6 +16,20 @@ You can deploy your own version of the Next.js AI Chatbot either directly or con
 
 `Dockerfile` template is taken from [Next.js example repo](https://github.com/vercel/next.js/tree/canary/examples/with-docker) with a slight modification of updating image to [`node:21-alpine`](https://hub.docker.com/layers/library/node/21-alpine/images/sha256-7364f864dab534a6e982e683813e2a6b1b3cbe86217225dce31aedb75a4c96a3?context=explore)
 
+For quick deployment, you can use the following command:
+
+```bash
+docker build -t ai-chatbot-azure .
+az acr login --name <myregistry>
+docker login <myregistry>.azurecr.io  # get login creds from Settings > Access keys
+docker tag ai-chatbot-azure <myregistry>.azurecr.io/ai-chatbot-azure
+docker push <myregistry>.azurecr.io/ai-chatbot-azure
+```
+
+NOTE: you need to have [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/) pre-installed.
+
+Then go to Container App Service and use this image to deploy your AI Chat app.
+
 ### Local Development
 
 To develop the chatbot template locally, you can clone the repository, and then create `.env.local`, copy over, and fill in all the environment variables from `.env.example`.
