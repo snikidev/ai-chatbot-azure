@@ -23,7 +23,14 @@ import { BlockKind } from '@/components/block';
 // https://authjs.dev/reference/adapter/drizzle
 
 // biome-ignore lint: Forbidden non-null assertion.
-const client = postgres(process.env.POSTGRES_URL!);
+const client = postgres({
+  host: process.env.DATABASE_HOST,
+  port: Number(process.env.DATABASE_PORT),
+  database: process.env.DATABASE_NAME,
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  ssl: 'require',
+});
 const db = drizzle(client);
 
 export async function getUser(email: string): Promise<Array<User>> {

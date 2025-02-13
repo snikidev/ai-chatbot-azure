@@ -10,7 +10,11 @@ export default defineConfig({
   out: './lib/db/migrations',
   dialect: 'postgresql',
   dbCredentials: {
-    // biome-ignore lint: Forbidden non-null assertion.
-    url: process.env.POSTGRES_URL!,
+    host: process.env.DATABASE_HOST!,
+    port: Number(process.env.DATABASE_PORT!),
+    database: process.env.DATABASE_NAME!,
+    user: process.env.DATABASE_USERNAME!,
+    password: process.env.DATABASE_PASSWORD!,
+    ssl: 'require',
   },
 });

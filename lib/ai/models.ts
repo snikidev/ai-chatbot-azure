@@ -1,5 +1,5 @@
-import { openai } from '@ai-sdk/openai';
-import { fireworks } from '@ai-sdk/fireworks';
+import { createAzure } from '@ai-sdk/azure';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
   customProvider,
   extractReasoningMiddleware,
@@ -8,20 +8,31 @@ import {
 
 export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
 
+const azureMini = createAzure({
+  baseURL: process.env.AZURE_BASE_URL_SMALL,
+  apiVersion: process.env.AZURE_API_VERSION_SMALL,
+  apiKey: process.env.AZURE_API_KEY_SMALL,
+})(process.env.AZURE_DEPLOYMENT_NAME_SMALL!)
+
+const azureLarge = createAzure({
+  baseURL: process.env.AZURE_BASE_URL_LARGE,
+  apiVersion: process.env.AZURE_API_VERSION_LARGE,
+  apiKey: process.env.AZURE_API_KEY_LARGE,
+})(process.env.AZURE_DEPLOYMENT_NAME_LARGE!)
+
 export const myProvider = customProvider({
   languageModels: {
-    'chat-model-small': openai('gpt-4o-mini'),
-    'chat-model-large': openai('gpt-4o'),
+    'chat-model-small': azureMini,
+    'chat-model-large': azureLarge,
     'chat-model-reasoning': wrapLanguageModel({
-      model: fireworks('accounts/fireworks/models/deepseek-r1'),
+      model: createDeepSeek({
+        baseURL: process.env.AZURE_BASE_URL_REASONING,
+        apiKey: process.env.AZURE_API_KEY_REASONING,
+      })(process.env.AZURE_DEPLOYMENT_NAME_REASONING!),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
-    'title-model': openai('gpt-4-turbo'),
-    'block-model': openai('gpt-4o-mini'),
-  },
-  imageModels: {
-    'small-model': openai.image('dall-e-2'),
-    'large-model': openai.image('dall-e-3'),
+    'title-model': azureMini,
+    'block-model': azureMini,
   },
 });
 
@@ -34,17 +45,17 @@ interface ChatModel {
 export const chatModels: Array<ChatModel> = [
   {
     id: 'chat-model-small',
-    name: 'Small model',
+    name: 'gpt-4o-mini',
     description: 'Small model for fast, lightweight tasks',
   },
   {
     id: 'chat-model-large',
-    name: 'Large model',
+    name: 'o1',
     description: 'Large model for complex, multi-step tasks',
   },
   {
     id: 'chat-model-reasoning',
-    name: 'Reasoning model',
+    name: 'DeepSeek R1',
     description: 'Uses advanced reasoning',
   },
 ];
