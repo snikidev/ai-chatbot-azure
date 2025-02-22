@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from './ui/button';
-import { ChatRequestOptions, CreateMessage, Message } from 'ai';
-import { memo } from 'react';
+import { motion } from "framer-motion";
+import { Button } from "./ui/button";
+import { ChatRequestOptions, CreateMessage, Message } from "ai";
+import { memo } from "react";
 
 interface SuggestedActionsProps {
   chatId: string;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
 }
 
@@ -17,24 +17,23 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
       title: "What are the advantages",
-      label: "of using Azure Cognitive Services?",
-      action: "What are the advantages of using Azure Cognitive Services?",
+      label: "of using Next.js?",
+      action: "What are the advantages of using Next.js?",
     },
     {
-      title: "How can I integrate",
-      label: "Azure Machine Learning into my workflow?",
-      action: "How can I integrate Azure Machine Learning into my workflow?",
+      title: "Write code to",
+      label: `demonstrate djikstra's algorithm`,
+      action: `Write code to demonstrate djikstra's algorithm`,
     },
     {
-      title: "What are the benefits",
-      label: "of Azure's AI solutions for data analysis?",
-      action:
-        "What are the benefits of Azure's AI solutions for data analysis?",
+      title: "Help me write an essay",
+      label: `about silicon valley`,
+      action: `Help me write an essay about silicon valley`,
     },
     {
-      title: "How does Azure AI",
-      label: "help reduce operational costs?",
-      action: "How does Azure AI help reduce operational costs?",
+      title: "What is the weather",
+      label: "in San Francisco?",
+      action: "What is the weather in San Francisco?",
     },
   ];
 
@@ -47,15 +46,15 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
           exit={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.05 * index }}
           key={`suggested-action-${suggestedAction.title}-${index}`}
-          className={index > 1 ? 'hidden sm:block' : 'block'}
+          className={index > 1 ? "hidden sm:block" : "block"}
         >
           <Button
             variant="ghost"
             onClick={async () => {
-              window.history.replaceState({}, '', `/chat/${chatId}`);
+              window.history.replaceState({}, "", `/chat/${chatId}`);
 
               append({
-                role: 'user',
+                role: "user",
                 content: suggestedAction.action,
               });
             }}

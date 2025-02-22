@@ -45,7 +45,7 @@ interface ChatModel {
 export const chatModels: Array<ChatModel> = [
   {
     id: 'chat-model-small',
-    name: 'gpt-4o-mini',
+    name: 'o3-mini',
     description: 'Small model for fast, lightweight tasks',
   },
   {
