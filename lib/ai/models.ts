@@ -32,7 +32,7 @@ export const myProvider = customProvider({
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     'title-model': azureMini,
-    'block-model': azureMini,
+    'artifact-model': azureMini,
   },
 });
 
