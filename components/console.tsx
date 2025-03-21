@@ -1,8 +1,8 @@
 import { TerminalWindowIcon, LoaderIcon, CrossSmallIcon } from './icons';
 import { Button } from './ui/button';
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useRef,
@@ -155,7 +155,7 @@ export function Console({ consoleOutputs, setConsoleOutputs }: ConsoleProps) {
                         <img
                           src={content.value}
                           alt="output"
-                          className="rounded-md max-w-[600px] w-full"
+                          className="rounded-md max-w-screen-toast-mobile w-full"
                         />
                       </picture>
                     ) : (

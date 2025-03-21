@@ -1,9 +1,7 @@
 'use client';
-
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/components/toast';
 
 import { AuthForm } from '@/components/auth-form';
 import { SubmitButton } from '@/components/submit-button';
@@ -25,14 +23,20 @@ export default function Page() {
 
   useEffect(() => {
     if (state.status === 'failed') {
-      toast.error('Invalid credentials!');
+      toast({
+        type: 'error',
+        description: 'Invalid credentials!',
+      });
     } else if (state.status === 'invalid_data') {
-      toast.error('Failed validating your submission!');
+      toast({
+        type: 'error',
+        description: 'Failed validating your submission!',
+      });
     } else if (state.status === 'success') {
       setIsSuccessful(true);
       router.refresh();
     }
-  }, [state.status, router]);
+  }, [state.status]);
 
   const handleSubmit = (formData: FormData) => {
     setEmail(formData.get('email') as string);
