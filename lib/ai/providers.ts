@@ -1,11 +1,10 @@
+import { createAzure } from '@ai-sdk/azure';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
   customProvider,
   extractReasoningMiddleware,
   wrapLanguageModel,
 } from 'ai';
-import { groq } from '@ai-sdk/groq';
-import { xai } from '@ai-sdk/xai';
-import { fal } from '@ai-sdk/fal';
 import { isTestEnvironment } from '../constants';
 import {
   artifactModel,
@@ -13,6 +12,24 @@ import {
   reasoningModel,
   titleModel,
 } from './models.test';
+
+const azureMini = createAzure({
+  baseURL: process.env.AZURE_BASE_URL_SMALL,
+  apiVersion: process.env.AZURE_API_VERSION_SMALL,
+  apiKey: process.env.AZURE_API_KEY_SMALL,
+})(process.env.AZURE_DEPLOYMENT_NAME_SMALL);
+
+const azureLarge = createAzure({
+  baseURL: process.env.AZURE_BASE_URL_LARGE,
+  apiVersion: process.env.AZURE_API_VERSION_LARGE,
+  apiKey: process.env.AZURE_API_KEY_LARGE,
+})(process.env.AZURE_DEPLOYMENT_NAME_LARGE);
+
+const imageModel = createAzure({
+  baseURL: process.env.AZURE_BASE_URL_IMAGE,
+  apiVersion: process.env.AZURE_API_VERSION_IMAGE,
+  apiKey: process.env.AZURE_API_KEY_IMAGE,
+}).imageModel(process.env.AZURE_DEPLOYMENT_NAME_IMAGE);
 
 export const myProvider = isTestEnvironment
   ? customProvider({
@@ -25,15 +42,19 @@ export const myProvider = isTestEnvironment
     })
   : customProvider({
       languageModels: {
-        'chat-model': xai('grok-2-1212'),
+        'chat-model-small': azureMini,
+        'chat-model-large': azureLarge,
         'chat-model-reasoning': wrapLanguageModel({
-          model: groq('deepseek-r1-distill-llama-70b'),
+          model: createDeepSeek({
+            baseURL: process.env.AZURE_BASE_URL_REASONING,
+            apiKey: process.env.AZURE_API_KEY_REASONING,
+          })(process.env.AZURE_DEPLOYMENT_NAME_REASONING),
           middleware: extractReasoningMiddleware({ tagName: 'think' }),
         }),
-        'title-model': xai('grok-2-1212'),
-        'artifact-model': xai('grok-2-1212'),
+        'title-model': azureMini,
+        'artifact-model': azureMini,
       },
       imageModels: {
-        'small-model': fal.image('fal-ai/fast-sdxl'),
+        'small-model': imageModel,
       },
     });
