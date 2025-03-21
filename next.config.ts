@@ -1,13 +1,13 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      ...(process.env.NODE_ENV === "production"
+      ...(process.env.NODE_ENV === 'production'
         ? [
             {
-              source: "/register",
-              destination: "/login",
+              source: '/register',
+              destination: '/login',
               permanent: false,
             },
           ]
@@ -20,11 +20,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "avatar.vercel.sh",
+        hostname: 'avatar.vercel.sh',
       },
     ],
   },
-  output: "standalone",
+  output: 'standalone',
 };
 
 export default nextConfig;

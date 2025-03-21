@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { expect, test as setup } from '@playwright/test';
 import { ChatPage } from './pages/chat';
 
@@ -13,7 +13,7 @@ setup('switch to reasoning model', async ({ page }) => {
 
   await chatPage.chooseModelFromSelector('chat-model-reasoning');
 
-  await expect(chatPage.getSelectedModel()).resolves.toEqual('Reasoning model');
+  await expect(chatPage.getSelectedModel()).resolves.toEqual('DeepSeek R1');
 
   await page.waitForTimeout(1000);
   await page.context().storageState({ path: reasoningFile });
