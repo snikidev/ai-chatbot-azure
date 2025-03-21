@@ -60,7 +60,7 @@ export async function POST(request: Request) {
         `${session.user.id}/${filename}`
       );
 
-      const uploadBlobResponse = await blockBlobClient.uploadData(fileBuffer, {
+      await blockBlobClient.uploadData(fileBuffer, {
         blobHTTPHeaders: {
           blobContentType: file.type,
         },
