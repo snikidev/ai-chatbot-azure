@@ -26,6 +26,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { useScrollToBottom } from '@/hooks/use-scroll-to-bottom';
 import type { VisibilityType } from './visibility-selector';
+import { SuggestedActions } from './suggested-actions';
 
 function PureMultimodalInput({
   chatId,
@@ -218,6 +219,16 @@ function PureMultimodalInput({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {messages.length === 0 &&
+        attachments.length === 0 &&
+        uploadQueue.length === 0 && (
+          <SuggestedActions
+            append={append}
+            chatId={chatId}
+            selectedVisibilityType={selectedVisibilityType}
+          />
+        )}
 
       <input
         type="file"
