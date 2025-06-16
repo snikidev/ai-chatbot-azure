@@ -8,7 +8,6 @@ config({
 });
 
 const runMigrate = async () => {
-  console.log('process.env', process.env);
   if (!process.env.POSTGRES_URL) {
     throw new Error('postgres variable is not defined');
   }
